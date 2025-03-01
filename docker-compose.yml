@@ -33,11 +33,13 @@ services:
       ZBX_SERVER_PORT: 10051
     depends_on:
       - zabbix-server
+    volumes:
+      - ./frontend:/usr/share/zabbix
     networks:
       - network-zabbix
 
   zabbix-agent:
-    image:  ${ZABBIX_AGENT_IMAGE:-zabbix/zabbix-agent:ubuntu-7.2.1}
+    image: ${ZABBIX_AGENT_IMAGE:-zabbix/zabbix-agent:ubuntu-7.2.1}
     container_name: zabbix-agent
     restart: unless-stopped
     ports:
