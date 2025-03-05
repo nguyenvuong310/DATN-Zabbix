@@ -1,1 +1,0 @@
-/etc/zabbix/web/maintenance.inc.php
