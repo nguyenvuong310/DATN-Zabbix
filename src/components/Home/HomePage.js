@@ -51,7 +51,7 @@ const HomePage = () => {
   );
 
   return (
-    <AnimatedPage>
+    <>
       <div className="flex flex-row max-sm:flex-col max-sm:space-y-3 flex-1 sm:space-x-3">
         <div className="flex flex-col w-1/2 max-sm:w-full space-y-3">
           <div className="flex flex-col items-center bg-gray-700 rounded-3xl">
@@ -104,7 +104,7 @@ const HomePage = () => {
           />
         </div>
       </div>
-    </AnimatedPage>
+    </>
   );
 };
 

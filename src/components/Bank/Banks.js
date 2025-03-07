@@ -140,14 +140,13 @@ const Banks = () => {
   if (!isAuthenticated) {
     return (
       <div className="flex flex-1 justify-center items-center text-white text-2xl font-be-vietnam-pro">
-        Hãy đăng nhập để có thể liên kết ngân hàng và theo dõi tài khoản ngân
-        hàng của bạn.
+        Hãy đăng nhập để có thể ABC của bạn.
       </div>
     );
   }
 
   return (
-    <AnimatedPage>
+    <>
       {loadingExchange && <LoadingSpinner />}
       {loadingTransactions && <LoadingSpinner />}
       <div className={`flex flex-col flex-1 space-y-4 ${loadingExchange || loadingTransactions ? 'blur-sm' : ''}`}>
@@ -190,7 +189,7 @@ const Banks = () => {
       existingFromDate={existingFromDate}
       existingToDate={existingToDate}
     />
-    </AnimatedPage>
+    </>
   );
 };
 

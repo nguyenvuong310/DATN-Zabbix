@@ -25,7 +25,7 @@ const NotificationCard = ({ notification }) => {
   }, [isExpanded]);
 
   return (
-    <AnimatedPage>
+    <>
     <div className="bg-gray-800 text-white rounded-xl p-4 cursor-pointer font-be-vietnam-pro space-y-2" onClick={toggleExpand}>
       <div className="flex justify-between items-start">
         <div className="flex-1 min-w-0">
@@ -46,7 +46,7 @@ const NotificationCard = ({ notification }) => {
         </div>
       </div>
     </div>
-    </AnimatedPage>
+    </>
   );
 };
 

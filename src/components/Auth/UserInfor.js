@@ -49,7 +49,7 @@ const UserInfor = (props) => {
   }
 
   return (
-    <AnimatedPage>
+    <>
       <div className="flex flex-1 max-sm:flex-col sm:py-20 h-full max-sm:space-y-4 items-center justify-center text-white font-be-vietnam-pro">
         {account?.avatar && (
           <div className="flex flex-col sm:px-2 h-full sm:w-1/3 max-sm:w-full sm:space-y-7 max-sm:space-y-4 justify-center items-center ">
@@ -122,7 +122,7 @@ const UserInfor = (props) => {
       {showPricingTable && <PricingTable onClose={() => setShowPricingTable(false)} />}
       {showPolicyModal && <PrivacyPolicyModalViewOnly onClose={() => setShowPolicyModal(false)} />}
       {isModalOpen && <PasswordModal onClose={() => setIsModalOpen(false)} onSave={handlePasswordChange} />}
-    </AnimatedPage>
+    </>
   );
 };
 

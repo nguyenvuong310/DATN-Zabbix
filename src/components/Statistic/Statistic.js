@@ -45,7 +45,7 @@ const Statistic = () => {
   }
 
   return (
-    <AnimatedPage>
+    <>
       {loading && <LoadingSpinner />}
       <div
         className={`flex flex-col flex-1 space-y-4 ${loading ? "blur-sm" : ""}`}
@@ -62,7 +62,7 @@ const Statistic = () => {
           )}
         </div>
       </div>
-    </AnimatedPage>
+    </>
   );
 };
 

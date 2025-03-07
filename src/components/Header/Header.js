@@ -20,7 +20,7 @@ const Header = () => {
     "/notification": "Thông báo",
     "/setting": "Cài đặt",
     "/chat": "Chat",
-    "/chatrequire": "Chat với BankGPT",
+    "/chatrequire": "Chat với ABC",
     "/transaction": "Các giao dịch",
     // Add more mappings as necessary
   };
@@ -35,7 +35,7 @@ const Header = () => {
     "/userInfor": "Thông tin cá nhân về tài khoản của bạn.",
     "/notification": "Các thông báo mới nhất từ hệ thống.",
     "/setting": "Cài đặt tài khoản và ứng dụng của bạn",
-    "/chat": "Chat với BankGPT",
+    "/chat": "Chat với ABC",
     "/chatrequire": "Trợ lý ảo tài chính thông minh của bạn",
     "/transaction": "Theo dõi các giao dịch của bạn.",
     // Add more mappings as necessary

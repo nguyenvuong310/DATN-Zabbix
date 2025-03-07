@@ -182,7 +182,7 @@ const TransactionScreen = () => {
 
   return (
     bankAccount && (
-      <AnimatedPage>
+      <>
         {loadingDelete && <LoadingSpinner />}
         <div
           className={`flex flex-row max-sm:flex-col flex-1 ${
@@ -308,7 +308,7 @@ const TransactionScreen = () => {
         >
           <FaArrowUp />
         </button>
-      </AnimatedPage>
+      </>
     )
   );
 };
