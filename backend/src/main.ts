@@ -6,12 +6,13 @@ import { ValidationPipe } from '@nestjs/common';
 
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { TransformInterceptor } from './core/transform.interceptor';
+import { AuthGuard } from './guards/auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const reflector = app.get(Reflector);
   const configService = app.get(ConfigService);
-
+  app.useGlobalGuards(new AuthGuard(reflector));
   app.useGlobalInterceptors(new TransformInterceptor(reflector));
 
   app.useGlobalPipes(
@@ -33,7 +34,7 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('NestJSCV')
+    .setTitle('DATN API')
     .setDescription('The nestJSCV API description')
     .setVersion('1.0')
     .addBearerAuth(
