@@ -1,0 +1,19 @@
+.chat-section {
+  position: relative;
+}
+
+.chat-section-header {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  background: #111827; /* Change this to match your background */
+  z-index: 10;
+  padding: 8px 0;
+  font-weight: bold;
+  color: #9ca3af;
+}
+
+.mobile-height {
+  height: 100vh;
+  height: 100svh;
+}
