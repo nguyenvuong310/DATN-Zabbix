@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import AppContext from "./utils/Context";
@@ -19,11 +18,7 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <PhotoProvider>
-          <GoogleOAuthProvider
-            clientId={process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID}
-          >
-            <Layout />
-          </GoogleOAuthProvider>
+          <Layout />
         </PhotoProvider>
       </BrowserRouter>
     </PersistGate>

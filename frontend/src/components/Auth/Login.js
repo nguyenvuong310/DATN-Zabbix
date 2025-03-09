@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { ImSpinner6 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
+
 import BackGround from "../../assets/bgLogin1.jpg";
 import { toast } from "react-toastify";
-import { useGoogleLogin } from "@react-oauth/google";
+
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
 import "nprogress/nprogress.css";
@@ -21,15 +21,9 @@ const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      console.log("tokenResponse", tokenResponse);
-      sendGoogleToken(tokenResponse.access_token);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const login = () => {
+    console.log("login");
+  };
   const sendGoogleToken = async (googleToken) => {
     console.log(googleToken);
     try {
