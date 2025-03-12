@@ -12,7 +12,7 @@ import { ApiProperty } from '@nestjs/swagger';
 class SNMPDetailsDto {
   @IsNumber()
   @IsNotEmpty()
-  @ApiProperty({ example: 3 })
+  @ApiProperty({ example: 2 })
   version: number;
 
   @IsNumber()
@@ -22,8 +22,13 @@ class SNMPDetailsDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'mysecurityname' })
-  securityname: string;
+  @ApiProperty({ example: '{$SNMP_COMMUNITY}' })
+  community: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ example: '' })
+  securityname?: string;
 
   @IsString()
   @IsOptional()
@@ -32,7 +37,7 @@ class SNMPDetailsDto {
 
   @IsNumber()
   @IsNotEmpty()
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: 0 })
   securitylevel: number;
 }
 
@@ -79,6 +84,13 @@ class HostGroupDto {
   groupid: string;
 }
 
+class HostTemplateDto {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({ example: '10226', description: 'ID of template' })
+  templateid: string;
+}
+
 export class CreateHostDto {
   @IsString()
   @IsNotEmpty()
@@ -94,6 +106,11 @@ export class CreateHostDto {
   @ValidateNested({ each: true })
   @Type(() => HostGroupDto)
   groups: HostGroupDto[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => HostTemplateDto)
+  templates: HostTemplateDto[];
 }
 
 export class ReturnHostDto {

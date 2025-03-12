@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ZabbixService } from '../services/zabbix.service';
 import { LoginDto } from './dto/login.dto';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
@@ -6,7 +6,6 @@ import { Public } from '../decorator/public.decorator';
 import { User } from 'src/decorator/user.decorator';
 import { CreateHostDto } from './dto/host.dto';
 import { ResponseMessage } from 'src/decorator/reposone_message.decorator';
-import axios from 'axios';
 
 @Controller('cameras')
 @ApiTags('Cameras')
@@ -49,65 +48,22 @@ export class ZabbixController {
   @Post('items')
   @ApiOperation({ summary: 'create items' })
   async createItems(@User() token) {
-    const response = await axios.post(
-      'http://localhost:8080/api_jsonrpc.php',
-      {
-        jsonrpc: '2.0',
-        method: 'item.create',
-        params: [
-          {
-            name: 'Incoming Bandwidth (bps)',
-            key_: 'snmp.in.traffic',
-            hostid: '10555',
-            type: 19, // SNMPv2/v3
-            value_type: 3, // Numeric (float)
-            interfaceid: '0',
-            url: 'http://192.168.1.100/api/status',
-            delay: '30s',
-          },
-          {
-            name: 'Outgoing Bandwidth (bps)',
-            key_: 'snmp.out.traffic',
-            hostid: '10555',
-            type: 19,
-            value_type: 3,
-            url: 'http://192.168.1.100/api/status',
-            interfaceid: '0',
-            delay: '30s',
-          },
-        ],
-        id: 5,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-    console.log(response);
-    return response.data.result;
+    return this.zabbixService.createItems(token);
   }
 
-  @Get('interfaces')
-  async getInterfaces(@User() token) {
-    const response = await axios.post(
-      'http://localhost:8080/api_jsonrpc.php',
-      {
-        jsonrpc: '2.0',
-        method: 'hostinterface.get',
-        params: {
-          output: 'extend',
-        },
-        id: 6,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-    return response.data.result;
+  // @Get('interfaces')
+  // async getInterfaces(@User() token) {
+  //   return this.zabbixService.getHostInterfaces(token);
+  // }
+
+  // @Get('items/:cameraId')
+  // @ResponseMessage('Get items success')
+  // async getItems(@User() token, @Param('cameraId') cameraId: string) {
+  //   return this.zabbixService.getItems(token, cameraId);
+  // }
+
+  @Post('trigggers')
+  async createTriggers(@User() token) {
+    return this.zabbixService.createTrigger(token);
   }
 }
