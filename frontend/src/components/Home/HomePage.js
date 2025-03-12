@@ -233,7 +233,7 @@ const HomePage = () => {
         </div>
 
         {/* Table Section */}
-        <div className="bg-white rounded-lg shadow">
+        <div className="bg-white rounded-lg shadow overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <TableHeader columns={tableColumns} />
             <tbody className="bg-white divide-y divide-gray-200">
