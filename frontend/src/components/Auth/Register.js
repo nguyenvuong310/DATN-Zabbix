@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoEye } from "react-icons/go";
-import BackGround from "../../assets/bgLogin1.jpg";
+import BackGround from "../../assets/modern-abstract-white-minimal-background_84443-8340.avif";
 import { hashPassword } from "../../utils/hashPassword";
 import { FaEyeSlash } from "react-icons/fa";
 import "nprogress/nprogress.css";
@@ -62,41 +62,41 @@ const Register = (props) => {
       style={{ background: `url(${BackGround})`, backgroundSize: "cover" }}
     >
       <div className="w-full max-w-md">
-        <div className="bg-slate-800 border border-slate-400 rounded-md shadow-2xl px-8 pt-6 backdrop-blur-sm backdrop-filter pb-8 mb-4 bg-opacity-50 relative text-white">
+        <div className="bg-white border border-slate-400 rounded-md shadow-2xl px-8 pt-6 backdrop-blur-sm backdrop-filter pb-8 mb-4 bg-opacity-50 relative text-black">
           <div className="mb-4 text-center">
             <span>Đã có tài khoản?</span>
             <button
               onClick={() => navigate("/login")}
-              className="ml-2 text-[#3bf8a0] hover:underline"
+              className="ml-2 text-emerald-600 hover:underline"
             >
               Đăng nhập ngay
             </button>
           </div>
-          <div className="text-2xl font-bold text-center mb-4">BankGPT</div>
+          <div className="text-2xl font-bold text-center mb-4">ABC</div>
           <div className="text-center mb-6">
-            Hãy bắt đầu với trợ lý ảo của chúng tôi
+            Hãy bắt đầu với hệ thống quản lý của chúng tôi
           </div>
           <div className=" relative mb-6">
             <input
-              className="block w-full py-2.3 px-0 text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-[#3bf8a0] focus:outline-none focus:ring-0 focus:text-white focus:border-[#3bf8a0] peer"
+              className="block w-full py-2.3 px-0 text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-emerald-600 focus:outline-none focus:ring-0 focus:text-black focus:border-emerald-600 peer"
               type="text"
               placeholder=""
               value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
-            <label className="absolute text-white text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#3bf8a0] peer-focus:dark:text-[#3bf8a0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
+            <label className="absolute text-black text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#3bf8a0] peer-focus:dark:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
               Họ tên<span className="text-red-600">*</span>
             </label>
           </div>
           <div className="relative mb-6">
             <input
-              className="block w-full py-2.3 px-0 text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-[#3bf8a0] focus:outline-none focus:ring-0 focus:text-white focus:border-[#3bf8a0] peer"
+              className="block w-full py-2.3 px-0 text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-emerald-600 focus:outline-none focus:ring-0 focus:text-white focus:border-emerald-600 peer"
               placeholder=""
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
-            <label className="absolute text-white text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#3bf8a0] peer-focus:dark:text-[#3bf8a0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
+            <label className="absolute text-black text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-focus:dark:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
               Email<span className="text-red-600">*</span>
             </label>
           </div>
@@ -104,13 +104,13 @@ const Register = (props) => {
           <div className="relative mb-8">
             <div className="relative">
               <input
-                className="block w-full py-2.3 px-0 text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-[#3bf8a0] focus:outline-none focus:ring-0 focus:text-white focus:border-[#3bf8a0] peer"
+                className="block w-full py-2.3 px-0 text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-emerald-600 focus:outline-none focus:ring-0 focus:text-black focus:border-emerald-600 peer"
                 placeholder=""
                 type={!showPassword ? "password" : "text"}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <label className="absolute text-white text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#3bf8a0] peer-focus:dark:text-[#3bf8a0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
+              <label className="absolute text-black text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-focus:dark:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
                 Mật khẩu<span className="text-red-600">*</span>
               </label>
               <div
@@ -136,7 +136,7 @@ const Register = (props) => {
           </div>
           <div className="text-center mt-4">
             <span
-              className="text-[#3bf8a0] hover:underline cursor-pointer"
+              className="text-emerald-600 hover:underline cursor-pointer"
               onClick={() => {
                 navigate("/");
               }}

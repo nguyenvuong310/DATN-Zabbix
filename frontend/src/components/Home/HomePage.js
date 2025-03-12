@@ -1,110 +1,277 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import CardSlider from "./CardSlider";
 import AnimatedPage from "../../AnimatedPage";
 import { fetchBanks } from "../../redux/action/bankActions";
-import TransactionChart from "./TransactionChart";
-import BankStatistics from "./BankStatistics";
-import Dropdown from "../Else/Dropdown";
-import TransactionCard from "../Transactions/TransactionCard";
-import "chart.js/auto";
+
+import InputField from "./InputField";
+import SelectField from "../Home/SelecField";
+import Button from "../Else/Button";
+import TagInput from "../Home/TagInput";
+import TableHeader from "../Home/TableHeader";
+import TableRow from "../Home/TableRow";
+
+const mockHosts = [
+  {
+    name: "Zabbix server",
+    items: 115,
+    triggers: 67,
+    graphs: 1,
+    discovery: 6,
+    web: "127.0.0.1:10050",
+    monitoredBy: "Linux by Zabbix agent, Zabbix server",
+    status: "ENABLED",
+    agentEncryption: "ZBX",
+    tags: "None",
+  },
+];
 
 const HomePage = () => {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const account = useSelector((state) => state.user.account);
-  const bankAccounts = useSelector((state) => state.banks.bankAccounts);
-  const isLoading = useSelector((state) => state.banks.loading);
-  const dispatch = useDispatch();
+  const [hostGroups, setHostGroups] = useState("");
+  const [templates, setTemplates] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
+  const [dnsFilter, setDnsFilter] = useState("");
+  const [ipFilter, setIpFilter] = useState("");
+  const [portFilter, setPortFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("ANY");
+  const [monitoredByFilter, setMonitoredByFilter] = useState("ANY");
+  const [tagsLogic, setTagsLogic] = useState("And/Or");
+  const [tags, setTags] = useState([{ tag: "", value: "" }]);
 
-  const [filter, setFilter] = useState("this_month");
+  const handleAddTag = () => {
+    setTags([...tags, { tag: "", value: "" }]);
+  };
 
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
+  const handleRemoveTag = (index) => {
+    setTags(tags.filter((_, i) => i !== index));
+  };
 
-  const months = Array.from({ length: currentMonth }, (_, i) => ({
-    value: `month_${i + 1}`,
-    label: `Tháng ${i + 1}`,
-  }));
+  const handleTagChange = (index, field, value) => {
+    const newTags = [...tags];
+    newTags[index][field] = value;
+    setTags(newTags);
+  };
 
-  const filterOptions = [
-    { value: "this_month", label: "Tháng này" },
-    { value: "this_week", label: "Tuần này" },
-    { value: "today", label: "Hôm nay" },
-    { value: "this_year", label: "Năm nay" },
-    ...months,
+  const handleReset = () => {
+    setHostGroups("");
+    setTemplates("");
+    setNameFilter("");
+    setDnsFilter("");
+    setIpFilter("");
+    setPortFilter("");
+    setStatusFilter("ANY");
+    setMonitoredByFilter("ANY");
+    setTagsLogic("And/Or");
+    setTags([{ tag: "", value: "" }]);
+  };
+
+  const handleApply = () => {
+    console.log("Applying filters:", {
+      hostGroups,
+      templates,
+      nameFilter,
+      dnsFilter,
+      ipFilter,
+      portFilter,
+      statusFilter,
+      monitoredByFilter,
+      tagsLogic,
+      tags,
+    });
+  };
+
+  const statusOptions = [
+    { value: "ANY", label: "Any" },
+    { value: "ENABLED", label: "Enabled" },
+    { value: "DISABLED", label: "Disabled" },
   ];
 
-  useEffect(() => {
-    if (isAuthenticated && account?.id && bankAccounts.length === 0) {
-      dispatch(fetchBanks(account.id));
-    }
-  }, [isAuthenticated, account?.id, bankAccounts.length]);
+  const monitoredByOptions = [
+    { value: "ANY", label: "Any" },
+    { value: "SERVER", label: "Server" },
+    { value: "PROXY", label: "Proxy" },
+    { value: "PROXY_GROUP", label: "Proxy group" },
+  ];
 
-  const transactions = useMemo(() => {
-    return bankAccounts
-      .flatMap((bankAccount) => bankAccount.transactions)
-      .sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
-  }, [bankAccounts]);
+  const tagsLogicOptions = [
+    { value: "And/Or", label: "And/Or" },
+    { value: "Or", label: "Or" },
+  ];
 
-  const selectedFilter = filterOptions.find(
-    (option) => option.value === filter
-  );
+  const tableColumns = [
+    "checkbox",
+    "Name",
+    "Items",
+    "Triggers",
+    "Graphs",
+    "Discovery",
+    "Web",
+    "Interface",
+    "Proxy",
+    "Templates",
+    "Status",
+    "Availability",
+    "Agent Encryption",
+    "Info",
+    "Tags",
+  ];
 
   return (
-    <>
-      <div className="flex flex-row max-sm:flex-col max-sm:space-y-3 flex-1 sm:space-x-3">
-        <div className="flex flex-col w-1/2 max-sm:w-full space-y-3">
-          <div className="flex flex-col items-center bg-gray-700 rounded-3xl">
-            <div className="text-white w-full text-xl font-semibold font-be-vietnam-pro py-2 px-5">
-              Ngân hàng của tôi
-            </div>
-            <CardSlider bankAccounts={bankAccounts} />
-          </div>
-          <div className="flex flex-1 flex-col items-center bg-gray-700 rounded-3xl">
-            <div className="text-white w-full text-xl font-semibold font-be-vietnam-pro py-2 px-5">
-              Giao dịch gần đây
-            </div>
-            <div className="w-full p-5 space-y-3 overflow-y-auto max-h-dvh">
-              {transactions.length > 0 ? (
-                transactions
-                  .slice(0, 10)
-                  .map((transaction) => (
-                    <TransactionCard
-                      key={transaction.id}
-                      transaction={transaction}
-                      disableCategory={true}
-                    />
-                  ))
-              ) : (
-                <div className="text-white text-xl text-center font-be-vietnam-pro">
-                  Không có dữ liệu để hiển thị.
-                </div>
-              )}
-            </div>
+    <AnimatedPage>
+      <div className="p-4 bg-gray-100 min-h-screen">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-2xl font-semibold text-gray-800">Hosts</h1>
+          <div className="space-x-2">
+            <Button
+              label="Create host"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            />
+            <Button
+              label="Import"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            />
+            <Button
+              label="Filter"
+              className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+            />
           </div>
         </div>
 
-        <div className="flex flex-col w-1/2 max-sm:w-full bg-gray-700 rounded-3xl space-y-3 p-4 overflow-y-auto">
-          <h3 className="text-xl text-white font-semibold font-be-vietnam-pro">
-            Biểu đồ thống kê
-          </h3>
-          {bankAccounts.length > 0 && transactions.length > 0 && (
-            <div className="flex space-x-3 mb-4">
-              <Dropdown
-                options={filterOptions}
-                selectedOption={selectedFilter}
-                onSelect={setFilter}
+        {/* Filter Section */}
+        <div className="bg-white p-4 rounded-lg shadow mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Left Column: Host groups, Templates, Name, DNS, IP, Port */}
+            <div className="space-y-4">
+              <InputField
+                label="Host groups"
+                value={hostGroups}
+                onChange={(e) => setHostGroups(e.target.value)}
+                placeholder="type here to search..."
+              />
+              <InputField
+                label="Templates"
+                value={templates}
+                onChange={(e) => setTemplates(e.target.value)}
+                placeholder="type here to search..."
+              />
+              <InputField
+                label="Name"
+                value={nameFilter}
+                onChange={(e) => setNameFilter(e.target.value)}
+              />
+              <InputField
+                label="DNS"
+                value={dnsFilter}
+                onChange={(e) => setDnsFilter(e.target.value)}
+              />
+              <InputField
+                label="IP"
+                value={ipFilter}
+                onChange={(e) => setIpFilter(e.target.value)}
+              />
+              <InputField
+                label="Port"
+                value={portFilter}
+                onChange={(e) => setPortFilter(e.target.value)}
               />
             </div>
-          )}
-          <TransactionChart transactions={transactions} filter={filter} />
-          <BankStatistics
-            transactions={transactions}
-            bankAccounts={bankAccounts}
+
+            {/* Middle Column: Status, Monitored by */}
+            <div className="space-y-4">
+              <SelectField
+                label="Status"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                options={statusOptions}
+              />
+              <SelectField
+                label="Monitored by"
+                value={monitoredByFilter}
+                onChange={(e) => setMonitoredByFilter(e.target.value)}
+                options={monitoredByOptions}
+              />
+            </div>
+
+            {/* Right Column: Tags */}
+            <div className="space-y-4">
+              <SelectField
+                label="Tags"
+                value={tagsLogic}
+                onChange={(e) => setTagsLogic(e.target.value)}
+                options={tagsLogicOptions}
+              />
+              {tags.map((tag, index) => (
+                <TagInput
+                  key={index}
+                  tag={tag}
+                  index={index}
+                  onChange={handleTagChange}
+                  onRemove={handleRemoveTag}
+                />
+              ))}
+              <Button
+                label="Add"
+                onClick={handleAddTag}
+                className="text-blue-600 hover:text-blue-800"
+              />
+            </div>
+          </div>
+
+          {/* Apply and Reset Buttons */}
+          <div className="mt-4 flex space-x-2">
+            <Button
+              label="Apply"
+              onClick={handleApply}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            />
+            <Button
+              label="Reset"
+              onClick={handleReset}
+              className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+            />
+          </div>
+        </div>
+
+        {/* Table Section */}
+        <div className="bg-white rounded-lg shadow overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <TableHeader columns={tableColumns} />
+            <tbody className="bg-white divide-y divide-gray-200">
+              {mockHosts.map((host, index) => (
+                <TableRow key={index} host={host} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Table Actions */}
+        <div className="mt-4 flex space-x-2">
+          <Button
+            label="Enable"
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+          />
+          <Button
+            label="Disable"
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+          />
+          <Button
+            label="Export"
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+          />
+          <Button
+            label="Mass update"
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+          />
+          <Button
+            label="Delete"
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           />
         </div>
+
+        {/* Pagination */}
+        <div className="mt-4 text-sm text-gray-600">Displaying 1 of 1 found</div>
       </div>
-    </>
+    </AnimatedPage>
   );
 };
 
