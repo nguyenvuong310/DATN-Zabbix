@@ -150,7 +150,7 @@ const Login = (props) => {
             <div className="flex-grow border-t border-gray-400"></div>
           </div>
 
-          <button
+          {/* <button
             className="flex flex-row justify-center gap-2 items-center w-full bg-blue-600 text-white  hover:bg-blue-700 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             onClick={() => {
               login();
@@ -162,7 +162,7 @@ const Login = (props) => {
               className="w-6 h-6 bg-white rounded-full"
             />
             <span> Đăng nhập với Google </span>
-          </button>
+          </button> */}
 
           <div className="text-center mt-4">
             <span
