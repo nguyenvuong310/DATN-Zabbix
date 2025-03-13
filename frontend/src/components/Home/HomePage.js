@@ -148,12 +148,12 @@ const HomePage = () => {
                 onChange={(e) => setHostGroups(e.target.value)}
                 placeholder="type here to search..."
               />
-              <InputField
+              {/* <InputField
                 label="Templates"
                 value={templates}
                 onChange={(e) => setTemplates(e.target.value)}
                 placeholder="type here to search..."
-              />
+              /> */}
               <InputField
                 label="Name"
                 value={nameFilter}
@@ -177,7 +177,7 @@ const HomePage = () => {
             </div>
 
             {/* Middle Column: Status, Monitored by */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <SelectField
                 label="Status"
                 value={statusFilter}
@@ -190,10 +190,10 @@ const HomePage = () => {
                 onChange={(e) => setMonitoredByFilter(e.target.value)}
                 options={monitoredByOptions}
               />
-            </div>
+            </div> */}
 
             {/* Right Column: Tags */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <SelectField
                 label="Tags"
                 value={tagsLogic}
@@ -214,7 +214,7 @@ const HomePage = () => {
                 onClick={handleAddTag}
                 className="text-blue-600 hover:text-blue-800"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* Apply and Reset Buttons */}
