@@ -22,9 +22,9 @@ export class ReturnLoginDto {
     description: 'The token of the user',
     example: 'a1f4774a1bb6acac6b6c09b7f29846ed',
   })
-  access_token: string;
+  accessToken: string;
 
   constructor(auth: string) {
-    this.access_token = auth;
+    this.accessToken = auth;
   }
 }

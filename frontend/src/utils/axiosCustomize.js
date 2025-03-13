@@ -21,6 +21,8 @@ instance.interceptors.request.use(
   function (config) {
     const accept_token = store?.getState()?.user?.account?.access_token;
 
+    console.log(">> interceptor", accept_token);
+
     config.headers["Authorization"] = "Bearer " + accept_token;
     NProgress.start();
     // Do something before request is sent

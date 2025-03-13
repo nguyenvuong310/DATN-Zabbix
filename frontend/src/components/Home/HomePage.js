@@ -10,6 +10,8 @@ import TagInput from "../Home/TagInput";
 import TableHeader from "../Home/TableHeader";
 import TableRow from "../Home/TableRow";
 
+import { createCamera } from "../../services/cameraService";
+
 const mockHosts = [
   {
     name: "Zabbix server",
@@ -64,19 +66,9 @@ const HomePage = () => {
     setTags([{ tag: "", value: "" }]);
   };
 
-  const handleApply = () => {
-    console.log("Applying filters:", {
-      hostGroups,
-      templates,
-      nameFilter,
-      dnsFilter,
-      ipFilter,
-      portFilter,
-      statusFilter,
-      monitoredByFilter,
-      tagsLogic,
-      tags,
-    });
+  const handleApply = async () => {
+    const res = await createCamera(nameFilter, ipFilter, dnsFilter, portFilter);
+    console.log("res", res);
   };
 
   const statusOptions = [
@@ -269,7 +261,9 @@ const HomePage = () => {
         </div>
 
         {/* Pagination */}
-        <div className="mt-4 text-sm text-gray-600">Displaying 1 of 1 found</div>
+        <div className="mt-4 text-sm text-gray-600">
+          Displaying 1 of 1 found
+        </div>
       </div>
     </AnimatedPage>
   );

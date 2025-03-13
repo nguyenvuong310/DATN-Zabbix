@@ -9,49 +9,20 @@ import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
 import "nprogress/nprogress.css";
 import "./Login.scss"; // Remove this import if it contains Bootstrap-specific styles
-import { postGoogleLogin, postLogin } from "../../services/authService";
-import { hashPassword } from "../../utils/hashPassword";
-import { validateEmail } from "../../utils/checkEmail";
+import { login } from "../../services/cameraService";
 
 const Login = (props) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const login = () => {
-    console.log("login");
-  };
-  const sendGoogleToken = async (googleToken) => {
-    console.log(googleToken);
-    try {
-      const res = await postGoogleLogin({ token: googleToken });
-      if (res && res.message) {
-        toast.error("Login failed", res.message); // invalid google token
-        return;
-      }
-      if (res && res.accessToken) {
-        dispatch(doLogin(res));
-        toast.success("Login successfully");
-        setIsLoading(false);
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  };
-
   const handleLogin = async () => {
     // validate
-    if (email === "") {
+    if (username === "") {
       toast.error("Email không được để trống!");
-      return;
-    }
-    if (!validateEmail(email)) {
-      toast.error("Email chưa đúng định đạng!");
       return;
     }
     if (password === "") {
@@ -65,18 +36,17 @@ const Login = (props) => {
 
     //submit api
     setIsLoading(true);
-    const hashedPassword = await hashPassword(password);
 
-    let res = await postLogin({ email: email, password: hashedPassword });
+    let res = await login(username, password);
+
     console.log("res", res);
 
-    if (res && res.accessToken) {
-      dispatch(doLogin(res));
+    if (res && res?.data?.accessToken) {
+      dispatch(doLogin(res?.data));
       toast.success("Login successfully");
       setIsLoading(false);
       navigate("/");
-    }
-    if (res && res.message) {
+    } else if (res && res.message) {
       toast.error(res.message);
       setIsLoading(false);
     }
@@ -104,12 +74,12 @@ const Login = (props) => {
               //   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               className="block w-full py-2.3 px-0 text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-emerald-600 focus:outline-none focus:ring-0 focus:text-black focus:border-emerald-600 peer"
               placeholder=""
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              type="username"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
             />
             <label className="absolute black text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-focus:dark:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
-              Email
+              Tài khoản
             </label>
           </div>
           <div className="relative mb-6">
@@ -124,11 +94,11 @@ const Login = (props) => {
               Mật khẩu
             </label>
           </div>
-          <div className="flex items-center justify-between mb-6">
+          {/* <div className="flex items-center justify-between mb-6">
             <span className="text-sm text-emerald-600 hover:underline cursor-pointer">
               Quên mật khẩu?
             </span>
-          </div>
+          </div> */}
           <div className="flex items-center justify-between mb-4">
             <button
               disabled={isLoading}
@@ -144,11 +114,11 @@ const Login = (props) => {
             </button>
           </div>
 
-          <div className="relative flex pb-4 items-center">
+          {/* <div className="relative flex pb-4 items-center">
             <div className="flex-grow border-t border-gray-400"></div>
             <span className="flex-shrink mx-4 text-white-500">Hoặc</span>
             <div className="flex-grow border-t border-gray-400"></div>
-          </div>
+          </div> */}
 
           {/* <button
             className="flex flex-row justify-center gap-2 items-center w-full bg-blue-600 text-white  hover:bg-blue-700 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

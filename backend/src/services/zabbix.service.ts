@@ -86,6 +86,24 @@ export class ZabbixService {
   }
 
   async createHost(token: string, data: CreateHostDto): Promise<ReturnHostDto> {
+    const interfaces = [
+      {
+        type: 2,
+        main: 1,
+        useip: 1,
+        ip: data.ip,
+        dns: data?.dns ? data.dns : '',
+        port: data.port,
+        details: {
+          version: 2,
+          bulk: 0,
+          community: '{$SNMP_COMMUNITY}',
+          securityname: '',
+          contextname: '',
+          securitylevel: 0,
+        },
+      },
+    ];
     const response = await axios.post(
       this.apiUrl,
       {
@@ -93,9 +111,13 @@ export class ZabbixService {
         method: 'host.create',
         params: {
           host: data.host,
-          interfaces: data.interfaces,
+          interfaces: interfaces,
           groups: data.groups,
-          templates: data.templates,
+          templates: [
+            {
+              templateid: '10226', // template generric device SNMP
+            },
+          ],
         },
         id: 3,
       },

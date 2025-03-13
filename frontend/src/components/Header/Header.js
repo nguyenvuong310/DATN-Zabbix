@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   const pageSubtitles = {
-    "/": "Tổng hợp những thông tin tài chính cá nhân của riêng bạn",
+    "/": "aa",
     "/login": "Please log in to access your account.",
     "/register": "Create a new account to get started.",
     "/bank": "Quản lý các tài khoản ngân hàng của bạn.",
@@ -53,7 +53,7 @@ const Header = () => {
     <header className="flex flex-row justify-between">
       <div className="max-sm:pl-3">
         <div className="text-white text-3xl font-be-vietnam-pro">{title}</div>
-        <div className="text-white font-be-vietnam-pro">{subtitle}</div>
+        {/* <div className="text-white font-be-vietnam-pro">{subtitle}</div> */}
       </div>
       <UserOptionButton />
     </header>

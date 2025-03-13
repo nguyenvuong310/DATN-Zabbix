@@ -27,6 +27,7 @@ export class ZabbixController {
     type: String,
   })
   @ApiOperation({ summary: 'Get all cameras or filter' })
+  @ResponseMessage('Get cameras success')
   async getHosts(@User() token, @Query('filter') filter: string) {
     const names = filter ? filter.split(',') : [];
     return this.zabbixService.getHosts(token, names);
@@ -34,6 +35,7 @@ export class ZabbixController {
 
   @Post('')
   @ApiOperation({ summary: 'Create a camera SNMP' })
+  @ResponseMessage('Create camera success')
   async createHost(@User() token, @Body() data: CreateHostDto) {
     return this.zabbixService.createHost(token, data);
   }
