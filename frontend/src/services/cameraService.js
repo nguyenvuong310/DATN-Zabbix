@@ -21,3 +21,7 @@ export const createCamera = async (name, ip, dns, port) => {
   };
   return await instance.post("/api/cameras", camera);
 };
+
+export const getCameras = async () => {
+  return await instance.get("/api/cameras");
+};

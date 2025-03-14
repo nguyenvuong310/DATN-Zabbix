@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AnimatedPage from "../../AnimatedPage";
-import { fetchBanks } from "../../redux/action/bankActions";
+import { fetchCameras } from "../../redux/action/cameraActions";
 
 import InputField from "./InputField";
 import SelectField from "../Home/SelecField";
@@ -11,6 +11,7 @@ import TableHeader from "../Home/TableHeader";
 import TableRow from "../Home/TableRow";
 
 import { createCamera } from "../../services/cameraService";
+import { useEffect } from "react";
 
 const mockHosts = [
   {
@@ -39,6 +40,14 @@ const HomePage = () => {
   const [tagsLogic, setTagsLogic] = useState("And/Or");
   const [tags, setTags] = useState([{ tag: "", value: "" }]);
 
+  const dispatch = useDispatch();
+  const { cameras, loading, error } = useSelector((state) => state.cameras);
+
+  // Fetch cameras when the component mounts
+  useEffect(() => {
+    dispatch(fetchCameras());
+  }, [dispatch]);
+
   const handleAddTag = () => {
     setTags([...tags, { tag: "", value: "" }]);
   };
@@ -64,11 +73,15 @@ const HomePage = () => {
     setMonitoredByFilter("ANY");
     setTagsLogic("And/Or");
     setTags([{ tag: "", value: "" }]);
+    dispatch(fetchCameras()); // Refetch all cameras on reset
   };
 
   const handleApply = async () => {
     const res = await createCamera(nameFilter, ipFilter, dnsFilter, portFilter);
     console.log("res", res);
+
+    const filter = nameFilter;
+    dispatch(fetchCameras(filter));
   };
 
   const statusOptions = [
@@ -106,6 +119,20 @@ const HomePage = () => {
     "Info",
     "Tags",
   ];
+
+  // Map the API response to match the table structure
+  const mappedCameras = cameras.map((camera) => ({
+    name: camera.host || "Unknown",
+    items: camera.items || 0,
+    triggers: camera.triggers || 0,
+    graphs: camera.graphs || 0,
+    discovery: camera.discovery || 0,
+    web: camera.web || "N/A",
+    monitoredBy: camera.assigned_proxyid === "0" ? "Server" : "Proxy",
+    status: camera.status === "0" ? "ENABLED" : "DISABLED",
+    agentEncryption: camera.tls_connect === "1" ? "TLS" : "None",
+    tags: "None",
+  }));
 
   return (
     <AnimatedPage>
@@ -224,17 +251,23 @@ const HomePage = () => {
           </div>
         </div>
 
+        {/* Loading and Error States */}
+        {loading && <div className="text-center">Loading...</div>}
+        {error && <div className="text-center text-red-500">Error: {error}</div>}
+
         {/* Table Section */}
-        <div className="bg-white rounded-lg shadow overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <TableHeader columns={tableColumns} />
-            <tbody className="bg-white divide-y divide-gray-200">
-              {mockHosts.map((host, index) => (
-                <TableRow key={index} host={host} />
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {!loading && !error && (
+          <div className="bg-white rounded-lg shadow overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <TableHeader columns={tableColumns} />
+              <tbody className="bg-white divide-y divide-gray-200">
+                {mappedCameras.map((host, index) => (
+                  <TableRow key={index} host={host} />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {/* Table Actions */}
         <div className="mt-4 flex space-x-2">
@@ -262,7 +295,7 @@ const HomePage = () => {
 
         {/* Pagination */}
         <div className="mt-4 text-sm text-gray-600">
-          Displaying 1 of 1 found
+          Displaying {mappedCameras.length} of {mappedCameras.length} found
         </div>
       </div>
     </AnimatedPage>
