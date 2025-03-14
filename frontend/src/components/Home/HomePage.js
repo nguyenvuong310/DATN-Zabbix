@@ -122,7 +122,7 @@ const HomePage = () => {
 
   // Map the API response to match the table structure
   console.log("cameras", cameras);
-  const mappedCameras = cameras.map((camera) => ({
+  const mappedCameras = Array.isArray(cameras) ? cameras.map((camera) => ({
     name: camera.host || "Unknown",
     items: camera.items || 0,
     triggers: camera.triggers || 0,
@@ -133,7 +133,7 @@ const HomePage = () => {
     status: camera.status === "0" ? "ENABLED" : "DISABLED",
     agentEncryption: camera.tls_connect === "1" ? "TLS" : "None",
     tags: "None",
-  }));
+  })) : [];
 
   return (
     <AnimatedPage>

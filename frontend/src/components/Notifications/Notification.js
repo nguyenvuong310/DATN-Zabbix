@@ -21,7 +21,7 @@ const Notification = () => {
   }, []);
 
   if (!notifications.length) {
-    return <div className='flex flex-1 justify-center items-center text-white text-center text-2xl font-be-vietnam-pro'>Hiện không có thông báo nào.</div>;
+    return <div className='flex flex-1 justify-center items-center text-black text-center text-2xl font-be-vietnam-pro'>Hiện không có thông báo nào.</div>;
   }
 
   return (

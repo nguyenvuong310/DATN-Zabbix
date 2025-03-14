@@ -6,7 +6,7 @@ const Setting = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-1 justify-center items-center text-white text-center text-2xl font-be-vietnam-pro'>Tính năng này đang được phát triển.</div>
+    <div className='flex flex-1 justify-center items-center text-black text-center text-2xl font-be-vietnam-pro'>Tính năng này đang được phát triển.</div>
   );
 };
 

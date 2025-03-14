@@ -50,12 +50,12 @@ const UserInfor = (props) => {
 
   return (
     <>
-      <div className="flex flex-1 max-sm:flex-col sm:py-20 h-full max-sm:space-y-4 items-center justify-center text-white font-be-vietnam-pro">
+      <div className="flex flex-1 max-sm:flex-col sm:py-20 h-full max-sm:space-y-4 items-center justify-center text-black font-be-vietnam-pro">
         {account?.avatar && (
           <div className="flex flex-col sm:px-2 h-full sm:w-1/3 max-sm:w-full sm:space-y-7 max-sm:space-y-4 justify-center items-center ">
             <img src={account.avatar} alt="Avatar" className="h-2/3 rounded-full" />
             <div className="text-3xl text-center truncate w-full max-sm:h-full">{account?.name}</div>
-            <div className="flex items-center justify-center px-2 rounded-xl bg-green-600 text-white">FREE</div>
+            <div className="flex items-center justify-center px-2 rounded-xl bg-green-600 text-black">FREE</div>
           </div>
         )}
         <div className="flex flex-col space-y-5 justify-center sm:pl-5 sm:w-1/2 max-sm:w-full h-full sm:border-l-2 sm:border-dashed">
@@ -112,7 +112,7 @@ const UserInfor = (props) => {
 
             <button 
               onClick={() => setShowPolicyModal(true)}
-              className="mt-5 py-2 px-4 bg-white text-black rounded-lg self-start"  
+              className="mt-5 py-2 px-4 border-black text-black rounded-lg border-sm self-start"  
             >
                 Xem Chính Sách Bảo Mật
             </button>

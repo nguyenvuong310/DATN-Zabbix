@@ -52,7 +52,7 @@ const Header = () => {
   return (
     <header className="flex flex-row justify-between">
       <div className="max-sm:pl-3">
-        <div className="text-white text-3xl font-be-vietnam-pro">{title}</div>
+        <div className="text-black text-3xl font-be-vietnam-pro">{title}</div>
         {/* <div className="text-white font-be-vietnam-pro">{subtitle}</div> */}
       </div>
       <UserOptionButton />

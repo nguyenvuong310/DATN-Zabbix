@@ -146,7 +146,7 @@ const Login = (props) => {
             <span> Đăng nhập với Google </span>
           </button> */}
 
-          <div className="text-center mt-4">
+          {/* <div className="text-center mt-4">
             <span
               className="text-emerald-600 hover:underline cursor-pointer"
               onClick={() => {
@@ -156,7 +156,7 @@ const Login = (props) => {
               {" "}
               &#60; &#60; Về trang chủ
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

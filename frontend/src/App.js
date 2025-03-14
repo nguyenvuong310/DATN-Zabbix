@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
-import Logo from "./assets/bestlogo.png";
+import Logo from "./assets/user.png";
 import { doLogout } from "../src/redux/action/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -72,7 +72,7 @@ const App = () => {
           </button>
         </div>
       </div>
-      <div className="p-4 flex space-x-5 h-svh bg-black">
+      <div className="p-4 flex space-x-5 h-svh bg-white">
         {/* SIDE BAR */}
         <div className="flex flex-col max-sm:hidden justify-between sticky top-0 h-full">
           {/* LOGO */}
@@ -98,7 +98,7 @@ const App = () => {
         {/* MAIN CONTENT */}
         <div className="flex flex-col flex-1 space-y-3 overflow-auto">
           {/* HEADER */}
-          <div className="flex-row pb-2 bg-black sticky top-0 z-10">
+          <div className="flex-row pb-2 bg-white sticky top-0 z-10">
             <Header />
           </div>
           {/* MAIN CONTAINER */}

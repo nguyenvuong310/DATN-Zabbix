@@ -10,7 +10,7 @@ const ChatRequire = () => {
   const navigate = useNavigate();
 
   if (!isAuthenticated) {
-    return <div className='flex flex-1 justify-center items-center text-white text-2xl font-be-vietnam-pro'>Hãy đăng nhập để có thể sử dụng ABC.</div>;
+    return <div className='flex flex-1 justify-center items-center text-black text-2xl font-be-vietnam-pro'>Hãy đăng nhập để có thể sử dụng ABC.</div>;
   }
 
   return (
