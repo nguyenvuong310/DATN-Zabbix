@@ -29,6 +29,7 @@ const Layout = (props) => {
   return (
     <>
       <Routes>
+        <Route path="login" index element={<Login />} />
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
 
@@ -42,7 +43,7 @@ const Layout = (props) => {
           <Route path="chatrequire" element={<ChatRequire />} />
           <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="login" element={<Login />} />
+
         <Route path="register" element={<Register />} />
         <Route path="chat" element={<ChatPage />} />
       </Routes>

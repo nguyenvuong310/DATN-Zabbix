@@ -19,6 +19,17 @@ const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    handleLogin();
+  };
+
   const handleLogin = async () => {
     // validate
     if (username === "") {
@@ -89,6 +100,7 @@ const Login = (props) => {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              onKeyDown={(event) => handleKeyPress(event)}
             />
             <label className="absolute text-black text-md font-semibold duration-300 transform -translate-y-5 scale-75 top-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-600 peer-focus:dark:text-emerald-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-5">
               Mật khẩu

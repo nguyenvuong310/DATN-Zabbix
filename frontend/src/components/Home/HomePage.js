@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AnimatedPage from "../../AnimatedPage";
-import { fetchCameras } from "../../redux/action/cameraActions";
+import { fetchCameras } from "../../redux/action/cameraAction";
 
 import InputField from "./InputField";
 import SelectField from "../Home/SelecField";
@@ -121,6 +121,7 @@ const HomePage = () => {
   ];
 
   // Map the API response to match the table structure
+  console.log("cameras", cameras);
   const mappedCameras = cameras.map((camera) => ({
     name: camera.host || "Unknown",
     items: camera.items || 0,
@@ -253,7 +254,9 @@ const HomePage = () => {
 
         {/* Loading and Error States */}
         {loading && <div className="text-center">Loading...</div>}
-        {error && <div className="text-center text-red-500">Error: {error}</div>}
+        {error && (
+          <div className="text-center text-red-500">Error: {error}</div>
+        )}
 
         {/* Table Section */}
         {!loading && !error && (

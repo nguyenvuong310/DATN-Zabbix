@@ -1,5 +1,5 @@
 // redux/action/cameraActions.js
-import axios from "axios";
+import { getCameras } from "../../services/cameraService";
 
 // Action Types
 export const FETCH_CAMERAS_REQUEST = "FETCH_CAMERAS_REQUEST";
@@ -26,7 +26,7 @@ export const fetchCameras = (filter = "") => {
   return async (dispatch) => {
     dispatch(fetchCamerasRequest());
     try {
-      const response = await axios.get(`/api/cameras${filter ? `?filter=${filter}` : ""}`);
+      const response = await getCameras();
       dispatch(fetchCamerasSuccess(response.data));
     } catch (error) {
       dispatch(fetchCamerasFailure(error.message));

@@ -3,7 +3,7 @@ import {
   FETCH_CAMERAS_REQUEST,
   FETCH_CAMERAS_SUCCESS,
   FETCH_CAMERAS_FAILURE,
-} from "../action/cameraActions";
+} from "../action/cameraAction";
 
 const initialState = {
   cameras: [],
