@@ -31,6 +31,9 @@ services:
       PHP_TZ: ${TZ}
       ZBX_SERVER_HOST: zabbix-server
       ZBX_SERVER_PORT: 10051
+      ZBX_SERVER_NAME: 'Camera Zabbix Server'
+    volumes:
+      - ./zabbix-frontend:/usr/share/zabbix
     depends_on:
       - zabbix-server
     networks:
