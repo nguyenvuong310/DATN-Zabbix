@@ -38,20 +38,18 @@ $header = (new CDiv())
 			(new CButtonIcon(ZBX_ICON_CHEVRON_DOUBLE_RIGHT, _('Expand sidebar')))
 				->addClass('js-sidebar-mode')
 				->addClass('button-expand'),
-			(new CButtonIcon(ZBX_ICON_COLLAPSE, _('Hide sidebar')))
-				->addClass('js-sidebar-mode')
-				->addClass('button-hide'),
-			(new CButtonIcon(ZBX_ICON_EXPAND, _('Show sidebar')))
-				->addClass('js-sidebar-mode')
-				->addClass('button-show')
+			// (new CButtonIcon(ZBX_ICON_COLLAPSE, _('Hide sidebar')))
+			// 	->addClass('js-sidebar-mode')
+			// 	->addClass('button-hide'),
+			// (new CButtonIcon(ZBX_ICON_EXPAND, _('Show sidebar')))
+			// 	->addClass('js-sidebar-mode')
+			// 	->addClass('button-show')
 		]))->addClass('sidebar-header-buttons')
 	);
 
 $server_name = ($data['server_name'] !== '')
 	? (new CDiv($data['server_name']))->addClass(ZBX_STYLE_SERVER_NAME)
 	: null;
-
-// $server_name = null
 
 $search_icon = (new CButtonIcon(ZBX_ICON_SEARCH, _('Search')))
 	->addClass('js-search')
@@ -76,7 +74,7 @@ $search = (new CForm('get', 'zabbix.php'))
 (new CTag('aside', true))
 	->addClass('sidebar')
 	->addClass(CViewHelper::loadSidebarMode() == ZBX_SIDEBAR_VIEW_MODE_COMPACT ? 'is-compact' : null)
-	->addClass(CViewHelper::loadSidebarMode() == ZBX_SIDEBAR_VIEW_MODE_HIDDEN ? 'is-hidden' : null)
+	// ->addClass(CViewHelper::loadSidebarMode() == ZBX_SIDEBAR_VIEW_MODE_HIDDEN ? 'is-hidden' : null)
 
 	->addItem([$header, $server_name, $search])
 	->addItem(
