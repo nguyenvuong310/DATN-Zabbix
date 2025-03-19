@@ -11,8 +11,24 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      ZBX_WEBSERVICEURL: 'http://zabbix-web-service:10053/report'
+      ZBX_STARTREPORTWRITERS: 1
     depends_on:
       - postgres
+    networks:
+      - network-datn
+
+  web-service:
+    image: zabbix/zabbix-web-service:ubuntu-7.2.1
+    container_name: zabbix-web-service
+    restart: unless-stopped
+    ports:
+      - '10053:10053'
+    environment:
+      ZBX_WEBSERVICE_LISTENPORT: 10053
+      ZBX_ALLOWEDIP: '0.0.0.0/0'
+      ZBX_CHROMEBIN: '/usr/bin/chromium'
+      ZBX_WEBSERVICE_TIMEOUT: 600
     networks:
       - network-datn
 
