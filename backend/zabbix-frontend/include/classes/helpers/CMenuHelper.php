@@ -447,34 +447,34 @@ class CMenuHelper {
 			'surname' => null
 		];
 
-		if (CWebUser::isGuest()) {
-			$menu->add(
-				(new CMenuItem(_('Guest user')))
-					->setIcon(ZBX_ICON_USER)
-					->setTitle(getUserFullname($user))
-			);
-		}
-		elseif (CWebUser::checkAccess(CRoleHelper::ACTIONS_MANAGE_API_TOKENS)) {
-			$menu->add(
-				(new CMenuItem(_('User settings')))
-					->setIcon(ZBX_ICON_USER_SETTINGS)
-					->setTitle(getUserFullname($user))
-					->setSubMenu(new CMenu([
-						(new CMenuItem(_('Profile')))
-							->setAction('userprofile.edit'),
-						(new CMenuItem(_('API tokens')))
-							->setAction('user.token.list')
-					]))
-			);
-		}
-		else {
-			$menu->add(
-				(new CMenuItem(_('User settings')))
-					->setIcon(ZBX_ICON_USER_SETTINGS)
-					->setAction('userprofile.edit')
-					->setTitle(getUserFullname($user))
-			);
-		}
+		// if (CWebUser::isGuest()) {
+		// 	$menu->add(
+		// 		(new CMenuItem(_('Guest user')))
+		// 			->setIcon(ZBX_ICON_USER)
+		// 			->setTitle(getUserFullname($user))
+		// 	);
+		// }
+		// elseif (CWebUser::checkAccess(CRoleHelper::ACTIONS_MANAGE_API_TOKENS)) {
+		// 	$menu->add(
+		// 		(new CMenuItem(_('User settings')))
+		// 			->setIcon(ZBX_ICON_USER_SETTINGS)
+		// 			->setTitle(getUserFullname($user))
+		// 			->setSubMenu(new CMenu([
+		// 				(new CMenuItem(_('Profile')))
+		// 					->setAction('userprofile.edit'),
+		// 				(new CMenuItem(_('API tokens')))
+		// 					->setAction('user.token.list')
+		// 			]))
+		// 	);
+		// }
+		// else {
+		// 	$menu->add(
+		// 		(new CMenuItem(_('User settings')))
+		// 			->setIcon(ZBX_ICON_USER_SETTINGS)
+		// 			->setAction('userprofile.edit')
+		// 			->setTitle(getUserFullname($user))
+		// 	);
+		// }
 
 		$menu->add(
 			(new CMenuItem(_('Sign out')))

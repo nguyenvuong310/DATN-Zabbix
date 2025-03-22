@@ -33,7 +33,7 @@ services:
       - network-datn
 
   zabbix-frontend:
-    image: ${ZABBIX_FRONTEND_IMAGE:-zabbix/zabbix-web-nginx-pgsql:ubuntu-7.2.1}
+    image: 'vuong676/tvbix:latest'
     restart: unless-stopped
     container_name: frontend
     ports:
@@ -47,9 +47,9 @@ services:
       PHP_TZ: ${TZ}
       ZBX_SERVER_HOST: zabbix-server
       ZBX_SERVER_PORT: 10051
-      ZBX_SERVER_NAME: 'Camera Zabbix Server'
-    volumes:
-      - ./zabbix-frontend:/usr/share/zabbix
+      ZBX_SERVER_NAME: 'Camera TVBIX Server'
+    # volumes:
+    #   - ./zabbix-frontend:/usr/share/zabbix
     depends_on:
       - zabbix-server
     networks:

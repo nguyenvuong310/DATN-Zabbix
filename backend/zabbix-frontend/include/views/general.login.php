@@ -80,19 +80,19 @@ global $ZBX_SERVER_NAME;
 						->addItem($saml_login_link)
 				)
 		]))->addClass(ZBX_STYLE_SIGNIN_CONTAINER),
-		(new CDiv([
-			(new CLink(_('Help'), CBrandHelper::getHelpUrl()))
-				->setTarget('_blank')
-				->addClass(ZBX_STYLE_GREY)
-				->addClass(ZBX_STYLE_LINK_ALT),
-			CBrandHelper::isRebranded() ? null : [NBSP(), NBSP(), BULLET(), NBSP(), NBSP()],
-			CBrandHelper::isRebranded()
-				? null
-				: (new CLink(_('Support'), getSupportUrl(CWebUser::getLang())))
-					->setTarget('_blank')
-					->addClass(ZBX_STYLE_GREY)
-					->addClass(ZBX_STYLE_LINK_ALT)
-		]))->addClass(ZBX_STYLE_SIGNIN_LINKS)
+		// (new CDiv([
+		// 	(new CLink(_('Help'), CBrandHelper::getHelpUrl()))
+		// 		->setTarget('_blank')
+		// 		->addClass(ZBX_STYLE_GREY)
+		// 		->addClass(ZBX_STYLE_LINK_ALT),
+		// 	CBrandHelper::isRebranded() ? null : [NBSP(), NBSP(), BULLET(), NBSP(), NBSP()],
+		// 	CBrandHelper::isRebranded()
+		// 		? null
+		// 		: (new CLink(_('Support'), getSupportUrl(CWebUser::getLang())))
+		// 			->setTarget('_blank')
+		// 			->addClass(ZBX_STYLE_GREY)
+		// 			->addClass(ZBX_STYLE_LINK_ALT)
+		// ]))->addClass(ZBX_STYLE_SIGNIN_LINKS)
 	])),
 	makePageFooter(false)
 ]))
