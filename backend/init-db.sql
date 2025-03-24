@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS zabbix_server_db;
+CREATE DATABASE IF NOT EXISTS zabbix_proxy_db;

@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-web-nginx-pgsql:ubuntu-7.2.1
+FROM zabbix/zabbix-web-nginx-mysql:ubuntu-7.2.1
 
 # Rename the existing Zabbix frontend directory
 RUN mv /usr/share/zabbix /usr/share/zabbix-old || true
