@@ -1,34 +1,13 @@
-FROM node:20-alpine AS development
+FROM zabbix/zabbix-web-nginx-mysql:ubuntu-7.2.1
 
-WORKDIR /app
+# Rename the existing Zabbix frontend directory
+RUN mv /usr/share/zabbix /usr/share/zabbix-old || true
 
-COPY package.json  package-lock.json*  ./
+# Create a new empty directory for the custom frontend
+RUN mkdir -p /usr/share/zabbix
 
-RUN npm i --force or --legacy-peer-deps
+# Copy the custom frontend files into the container
+COPY zabbix-frontend /usr/share/zabbix
 
-################################
-FROM node:20-alpine AS builder
-
-WORKDIR /app
-
-COPY --from=development /app/node_modules ./node_modules
-
-COPY . .
-
-RUN npm run build
-
-ENV NODE_ENV=production
-
-RUN npm i --only=production --force --legacy-peer-deps && npm cache clean --force --legacy-peer-deps
-
-
-################################
-FROM node:20-alpine AS production
-WORKDIR /app
-
-COPY --from=builder --chown=node:node /app/dist ./dist
-COPY --from=builder --chown=node:node /app/node_modules ./node_modules
-
-USER node
-
-CMD ["node", "dist/main.js"]
+# Keep the default entrypoint
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
