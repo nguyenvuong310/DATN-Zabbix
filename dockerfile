@@ -7,7 +7,7 @@ RUN mv /usr/share/zabbix /usr/share/zabbix-old || true
 RUN mkdir -p /usr/share/zabbix
 
 # Copy the custom frontend files into the container
-COPY zabbix-frontend /usr/share/zabbix
+COPY frontend /usr/share/zabbix
 
 # Keep the default entrypoint
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
