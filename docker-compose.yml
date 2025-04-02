@@ -60,7 +60,7 @@ services:
     container_name: zabbix-proxy
     restart: unless-stopped
     ports:
-      - '10052:10051' # Zabbix Proxy port
+      - "10052:10051" # Zabbix Proxy port
     environment:
       ZBX_SERVER_HOST: tvbix.xyz
       ZBX_SERVER_PORT: 10051 # Default Zabbix Server port
@@ -80,7 +80,7 @@ services:
     container_name: mysql
     restart: unless-stopped
     ports:
-      - '3306:3306' # MySQL default port
+      - "3306:3306" # MySQL default port
     volumes:
       - mysql:/var/lib/mysql # Changed volume name from postgres to mysql
     environment:
