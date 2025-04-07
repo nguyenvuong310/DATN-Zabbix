@@ -31,8 +31,6 @@ services:
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    env_file:
-      - .env
     networks:
       - network-datn
 
@@ -70,9 +68,10 @@ services:
       - network-datn
 
   zabbix-frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: vuong676/tvbix:latest
     restart: unless-stopped
     container_name: frontend
     ports:
@@ -89,6 +88,8 @@ services:
       ZBX_SERVER_NAME: ${ZBX_SERVER_NAME}
     depends_on:
       - zabbix-server
+    # volumes:
+    #   - ./frontend:/usr/share/zabbix
     networks:
       - network-datn
 
