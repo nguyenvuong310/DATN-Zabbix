@@ -1,38 +1,38 @@
 services:
-  zabbix-proxy:
-    image: zabbix/zabbix-proxy-mysql:ubuntu-7.2.1
-    container_name: zabbix-proxy
-    restart: unless-stopped
-    ports:
-      - "10052:10051" # Zabbix Proxy port
-    environment:
-      ZBX_SERVER_HOST: ${ZBX_SERVER_HOST}
-      ZBX_SERVER_PORT: ${ZBX_SERVER_PORT}
-      DB_SERVER_HOST: mysql
-      ZBX_HOSTNAME: ${ZBX_HOSTNAME_PROXY}
-      DB_SERVER_PORT: 3306
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      ZBX_ENABLEREMOTECOMMANDS: 1
-    env_file:
-      - .env
-    networks:
-      - network-datn
+  # zabbix-proxy:
+  #   image: zabbix/zabbix-proxy-mysql:ubuntu-7.2.1
+  #   container_name: zabbix-proxy
+  #   restart: unless-stopped
+  #   ports:
+  #     - "10052:10051" # Zabbix Proxy port
+  #   environment:
+  #     ZBX_SERVER_HOST: ${ZBX_SERVER_HOST}
+  #     ZBX_SERVER_PORT: ${ZBX_SERVER_PORT}
+  #     DB_SERVER_HOST: mysql
+  #     ZBX_HOSTNAME: ${ZBX_HOSTNAME_PROXY}
+  #     DB_SERVER_PORT: 3306
+  #     MYSQL_USER: ${MYSQL_USER}
+  #     MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: ${MYSQL_DATABASE}
+  #     ZBX_ENABLEREMOTECOMMANDS: 1
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - network-datn
 
-  mysql: # Changed from postgres
-    image: mysql:8.0 # Using MySQL 8.0 as a stable version
-    container_name: mysql
-    restart: unless-stopped
-    ports:
-      - "3306:3306" # MySQL default port
-    volumes:
-      - mysql:/var/lib/mysql # Changed volume name from postgres to mysql
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    networks:
-      - network-datn
+  # mysql: # Changed from postgres
+  #   image: mysql:8.0 # Using MySQL 8.0 as a stable version
+  #   container_name: mysql
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3306:3306" # MySQL default port
+  #   volumes:
+  #     - mysql:/var/lib/mysql # Changed volume name from postgres to mysql
+  #   environment:
+  #     MYSQL_DATABASE: ${MYSQL_DATABASE}
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #   networks:
+  #     - network-datn
 
   zabbix-server:
     image: "zabbix/zabbix-server-pgsql:ubuntu-7.2.1"
@@ -88,8 +88,8 @@ services:
       ZBX_SERVER_NAME: ${ZBX_SERVER_NAME}
     depends_on:
       - zabbix-server
-    # volumes:
-    #   - ./frontend:/usr/share/zabbix
+    volumes:
+      - ./frontend:/usr/share/zabbix
     networks:
       - network-datn
 

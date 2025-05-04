@@ -74,32 +74,32 @@ class CMenuHelper {
 			);
 		}
 
-		$submenu_services = [
-			CWebUser::checkAccess(CRoleHelper::UI_SERVICES_SERVICES)
-				? (new CMenuItem(_('Services')))
-					->setAction('service.list')
-					->setAliases(['service.list.edit'])
-				: null,
-			CWebUser::checkAccess(CRoleHelper::UI_SERVICES_SLA)
-				? (new CMenuItem(_('SLA')))
-					->setAction('sla.list')
-				: null,
-			CWebUser::checkAccess(CRoleHelper::UI_SERVICES_SLA_REPORT)
-				? (new CMenuItem(_('SLA report')))
-					->setAction('slareport.list')
-				: null
-		];
+		// $submenu_services = [
+		// 	CWebUser::checkAccess(CRoleHelper::UI_SERVICES_SERVICES)
+		// 		? (new CMenuItem(_('Services')))
+		// 			->setAction('service.list')
+		// 			->setAliases(['service.list.edit'])
+		// 		: null,
+		// 	CWebUser::checkAccess(CRoleHelper::UI_SERVICES_SLA)
+		// 		? (new CMenuItem(_('SLA')))
+		// 			->setAction('sla.list')
+		// 		: null,
+		// 	CWebUser::checkAccess(CRoleHelper::UI_SERVICES_SLA_REPORT)
+		// 		? (new CMenuItem(_('SLA report')))
+		// 			->setAction('slareport.list')
+		// 		: null
+		// ];
 
-		$submenu_services = array_filter($submenu_services);
+		// $submenu_services = array_filter($submenu_services);
 
-		if ($submenu_services) {
-			$menu->add(
-				(new CMenuItem(_('Services')))
-					->setId('services')
-					->setIcon(ZBX_ICON_SERVICES)
-					->setSubMenu(new CMenu($submenu_services))
-			);
-		}
+		// if ($submenu_services) {
+		// 	$menu->add(
+		// 		(new CMenuItem(_('Services')))
+		// 			->setId('services')
+		// 			->setIcon(ZBX_ICON_SERVICES)
+		// 			->setSubMenu(new CMenu($submenu_services))
+		// 	);
+		// }
 
 		// $submenu_inventory = [
 		// 	CWebUser::checkAccess(CRoleHelper::UI_INVENTORY_OVERVIEW)
