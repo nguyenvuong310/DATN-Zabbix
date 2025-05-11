@@ -38,10 +38,5 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.HOST_IP }} > ~/.ssh/known_hosts
 
-      - name: connect and pull
-        run: |
-          ssh -v -o StrictHostKeyChecking=no ${{ secrets.USER_NAME }}@${{ secrets.HOST_IP }} \
-          "cd tvbix-deploy && bash deploy.sh ${{ github.sha }}"
-
-      - name: cleanup
-        run: rm -rf ~/.ssh
+      - name: Show known_hosts
+        run: cat ~/.ssh/known_hosts
