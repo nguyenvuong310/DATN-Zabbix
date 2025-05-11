@@ -71,13 +71,13 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: vuong676/tvbix:c4b7448acf0c448c18afda49cd00a6caa3f7293e
+    image: zabbix/zabbix-web-nginx-pgsql:ubuntu-7.2.1
     restart: unless-stopped
     container_name: frontend
     ports:
       - "8080:8080"
       - "8443:8443"
-    platform: linux/amd64
+    # platform: linux/amd64
     environment:
       DB_SERVER_HOST: postgres
       POSTGRES_USER: ${POSTGRES_USER}
