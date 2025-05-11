@@ -3,8 +3,7 @@ FROM zabbix/zabbix-web-nginx-pgsql:ubuntu-7.2.1
 # Switch to root to perform file operations
 USER root
 
-# Rename the existing Zabbix frontend directory
-RUN mv /usr/share/zabbix /usr/share/zabbix-old || true
+RUN rm -rf /usr/share/zabbix || true
 
 # Create a new empty directory for the custom frontend
 RUN mkdir -p /usr/share/zabbix
