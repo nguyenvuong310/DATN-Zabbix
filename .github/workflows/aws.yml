@@ -36,7 +36,7 @@ jobs:
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOST)IP }} > ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.HOST_IP }} > ~/.ssh/known_hosts
 
       - name: connect and pull
         run: ssh ${{ secrets.USER_NAME }}@${{ secrets.HOST_IP }} "cd tvbix-deploy && bash deploy.sh ${{ github.sha }}"
