@@ -36,10 +36,10 @@ jobs:
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOSTNAME }} > ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.HOSTIP }} > ~/.ssh/known_hosts
 
-      # - name: connect and pull
-      #   run: ssh ${{ secrets.USER_NAME }}@${{ secrets.HOSTNAME }} "cd goldenowl-devops-internship-challenge && bash deploy.sh ${{ github.sha }}"
+      - name: connect and pull
+        run: ssh ${{ secrets.USER_NAME }}@${{ secrets.HOSTIP }} "cd tvbix-deploy && bash deploy.sh ${{ github.sha }}"
 
-      # - name: cleanup
-      #   run: rm -rf ~/.ssh
+      - name: cleanup
+        run: rm -rf ~/.ssh
