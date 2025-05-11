@@ -71,7 +71,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: vuong676/tvbix:latest
+    image: vuong676/tvbix:c4b7448acf0c448c18afda49cd00a6caa3f7293e
     restart: unless-stopped
     container_name: frontend
     ports:
